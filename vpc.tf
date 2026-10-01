@@ -18,6 +18,23 @@ resource "aws_subnet" "private2" {
     Name = "private2"
   }
 }
+resource "aws_subnet" "db-private1" {
+  vpc_id     = aws_vpc.app-vpc.id
+  cidr_block = "10.0.50.0/28"
+  availability_zone = var.availability_zones[0]
+  tags = {
+    Name = "db-private1"
+  }
+  
+}
+resource "aws_subnet" "db-private2" {
+  vpc_id     = aws_vpc.app-vpc.id
+  cidr_block = "10.0.60.0/28"
+  availability_zone = var.availability_zones[1]
+  tags = {
+    Name = "db-private2"
+  }
+}
 # .... public subnets section ......#
 resource "aws_subnet" "public1" {
   vpc_id     = aws_vpc.app-vpc.id
@@ -71,6 +88,7 @@ resource "aws_nat_gateway" "natgateway" {
   connectivity_type = "public"
   allocation_id = aws_eip.natip.id
   region = var.region
+  subnet_id = local.pubnet-ids[0]
   tags = {
     Name = "gw NAT"
   }
@@ -93,5 +111,10 @@ resource "aws_route_table" "private-tb" {
 resource "aws_route_table_association" "prv-subnet-joins" {
   count = 2
   subnet_id      = local.prvnet-ids[count.index]
+  route_table_id = aws_route_table.private-tb.id
+}
+resource "aws_route_table_association" "db-subnet-joins" {
+  count = 2
+  subnet_id      = local.dbnet-ids[count.index]
   route_table_id = aws_route_table.private-tb.id
 }
