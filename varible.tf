@@ -23,10 +23,23 @@ locals {
   aws_subnet.private2.id
   ]
 }
-
+locals {
+  dbnet-ids=[
+    aws_subnet.db-private1.id,
+    aws_subnet.db-private2.id
+  ]
+}
 locals {
   pubnet-ids=[
   aws_subnet.public1.id,
   aws_subnet.public2.id
   ]
+}
+
+variable "db-username" {
+  type = string
+  default = "admin"
+}
+variable "db-password" {
+  
 }
