@@ -24,7 +24,7 @@ The infrastructure is deployed in the AWS `us-east-1` region across two Availabi
 
 ### Architecture Diagram
 
-![AWS Multi-Tier Architecture](./architecture.png)
+![AWS Multi-Tier Architecture](./project-diagram/Diagram.png)
 
 ### Architecture Flow
 
