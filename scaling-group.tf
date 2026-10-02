@@ -37,7 +37,7 @@ resource "aws_autoscaling_group" "bar" {
   max_size                  = 5
   min_size                  = 2
   desired_capacity          = 2
-  vpc_zone_identifier       = local.pubnet-ids
+  vpc_zone_identifier       = local.prvnet-ids
   health_check_type = "ELB"
   target_group_arns = [ aws_lb_target_group.webtarget.arn ]
 
